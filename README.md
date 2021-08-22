@@ -1,5 +1,9 @@
 # AppleNews_VIP
 
+See a screen recording of the app here:
+
+https://www.youtube.com/watch?v=ymoHqAZlsTA
+
 The app is made using CleanSwift.
 It is a tabbar application with two tabs:
 - the Articles tab which grabs a list of articles about Apple from an API 
