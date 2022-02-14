@@ -12,14 +12,22 @@
 
 import UIKit
 
-protocol ArticlesPresentationLogic {
+protocol ArticlesPresenterProtocol {
+    func set(viewController: ArticlesViewControllerProtocol)
+    
     func presentArticles(response: Articles.List.Response)
     func presentFilteredArticles(response: Articles.Search.Response)
-    func presentSelectedArticle()
 }
 
-class ArticlesPresenter: ArticlesPresentationLogic {
-    weak var viewController: ArticlesDisplayLogic?
+class ArticlesPresenter: ArticlesPresenterProtocol {
+    
+    // MARK: - DI
+    
+    weak var viewController: ArticlesViewControllerProtocol?
+    
+    func set(viewController: ArticlesViewControllerProtocol) {
+        self.viewController = viewController
+    }
     
     //MARK: - Presenters
     
@@ -37,9 +45,5 @@ class ArticlesPresenter: ArticlesPresentationLogic {
         var viewModel = Articles.Search.ViewModel()
         viewModel.articles = articles
         viewController?.displayArticles(viewModel: viewModel)
-    }
-    
-    func presentSelectedArticle() {
-        viewController?.displaySelectedArticle()
     }
 }

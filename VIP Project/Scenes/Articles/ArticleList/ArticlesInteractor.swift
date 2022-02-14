@@ -11,44 +11,52 @@
 //
 
 import UIKit
+import Combine
 
-protocol ArticlesBusinessLogic {
-    func loadArticles()
-    func selectArticle(request: Articles.SelectedArticle.Request)
+protocol ArticlesInteractorProtocol {
+    func getArticles()
     func searchArticle(request: Articles.Search.Request)
-}
-
-protocol ArticlesDataStore {
+    
     var selectedArticle: Article! { get set }
 }
 
-class ArticlesInteractor: ArticlesBusinessLogic, ArticlesDataStore {
+class ArticlesInteractor: ArticlesInteractorProtocol {
     
-    var presenter: ArticlesPresentationLogic?
-    var worker: ArticlesWorker?
+    var presenter: ArticlesPresenterProtocol
+    let service: ArticleServiceProtocol
     
     var articles: [Article]?
     var filteredArticles: [Article]?
     var selectedArticle: Article!
     
-    //MARK: - Responses
+    var cancellables = Set<AnyCancellable>()
     
-    func loadArticles() {
-        worker = ArticlesWorker()
-        worker?.getHousesList(callback: { (articles, error) in
-            let response = Articles.List.Response(articles: articles, error: error)
-            self.articles = articles
-            self.presenter?.presentArticles(response: response)
-        })
+    //MARK: - DI
+    
+    init(
+        presenter: ArticlesPresenterProtocol,
+        service: ArticleServiceProtocol
+    ) {
+        self.presenter = presenter
+        self.service = service
     }
     
-    func selectArticle(request: Articles.SelectedArticle.Request) {
-        guard let articles = articles, request.index < articles.count else {
-            return
-        }
-        
-        selectedArticle = articles[request.index]
-        presenter?.presentSelectedArticle()
+    //MARK: - Responses
+    
+    func getArticles() {
+        service.articles()
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Success")
+                    case .failure:
+                        print("Failure")
+                }
+            } receiveValue: { [weak self] response in
+                self?.articles = response[0].articles
+                let response = Articles.List.Response(articles: self?.articles, error: nil)
+                self?.presenter.presentArticles(response: response)
+            }
     }
     
     func searchArticle(request: Articles.Search.Request) {
@@ -60,6 +68,6 @@ class ArticlesInteractor: ArticlesBusinessLogic, ArticlesDataStore {
             })
         }
         
-        presenter?.presentFilteredArticles(response: Articles.Search.Response(articles: filteredArticles))
+        presenter.presentFilteredArticles(response: Articles.Search.Response(articles: filteredArticles))
     }
 }

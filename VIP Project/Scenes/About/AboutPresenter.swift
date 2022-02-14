@@ -12,13 +12,22 @@
 
 import UIKit
 
-protocol AboutPresentationLogic {
+protocol AboutPresenterProtocol {
+    func set(viewController: AboutViewControllerProtocol)
+    
     func presentAboutData(response: About.AboutData.Response)
     func goToLink(response: About.Navigate.Response)
 }
 
-class AboutPresenter: AboutPresentationLogic {
-    weak var viewController: AboutDisplayLogic?
+class AboutPresenter: AboutPresenterProtocol {
+    
+    //MARK: - DI
+    
+    weak var viewController: AboutViewControllerProtocol?
+    
+    func set(viewController: AboutViewControllerProtocol) {
+        self.viewController =  viewController
+    }
     
     //MARK: - Presenters
     

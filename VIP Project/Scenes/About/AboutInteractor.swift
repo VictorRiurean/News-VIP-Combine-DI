@@ -12,19 +12,22 @@
 
 import UIKit
 
-protocol AboutBusinessLogic {
+protocol AboutInteractorProtocol {
+    func set(presenter: AboutPresenterProtocol)
+    
     func getAboutData()
     func goToLink()
 }
 
-protocol AboutDataStore {
-    //var name: String { get set }
-}
-
-class AboutInteractor: AboutBusinessLogic, AboutDataStore {
+class AboutInteractor: AboutInteractorProtocol {
     
-    var presenter: AboutPresentationLogic?
-    var worker: AboutWorker?
+    //MARK: - Di
+    
+    var presenter: AboutPresenterProtocol?
+    
+    func set(presenter: AboutPresenterProtocol) {
+        self.presenter = presenter
+    }
     
     //MARK: - Responses
     

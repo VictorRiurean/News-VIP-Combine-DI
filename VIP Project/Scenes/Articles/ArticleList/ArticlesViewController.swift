@@ -13,58 +13,34 @@
 import UIKit
 import Kingfisher
 
-protocol ArticlesDisplayLogic: class {
+protocol ArticlesViewControllerProtocol: UIViewControllerRouting {
+    func setupDI(
+        interactor: ArticlesInteractorProtocol,
+        router: ArticlesRouterProtocol
+    )
+    
     func displayArticles(viewModel: Articles.List.ViewModel)
     func displayArticles(viewModel: Articles.Search.ViewModel)
-    func displaySelectedArticle()
 }
 
-class ArticlesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, ArticlesDisplayLogic {
+class ArticlesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, ArticlesViewControllerProtocol {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var interactor: ArticlesBusinessLogic?
-    var router: (NSObjectProtocol & ArticlesRoutingLogic & ArticlesDataPassing)?
+    var interactor: ArticlesInteractorProtocol?
+    var router: ArticlesRouterProtocol?
     
     var articles: [Article]?
     
-    //MARK: - Object lifecycle
+    //MARK: - DI
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-    
-    //MARK: - Setup
-    
-    private func setup() {
-        let viewController = self
-        let interactor = ArticlesInteractor()
-        let presenter = ArticlesPresenter()
-        let router = ArticlesRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
-    }
-    
-    //MARK: - Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
+    func setupDI(
+        interactor: ArticlesInteractorProtocol,
+        router: ArticlesRouterProtocol
+    ) {
+        self.interactor = interactor
+        self.router = router
     }
     
     //MARK: - View lifecycle
@@ -72,6 +48,16 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        prepareUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.searchBar.searchTextField.resignFirstResponder()
+    }
+    
+    //MARK: - Prepare UI
+    
+    func prepareUI() {
         view.backgroundColor = Colors.myLightGray
         searchBar.barTintColor = Colors.myLightGray
         tableView.backgroundColor = Colors.myLightGray
@@ -90,18 +76,10 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         loadArticles()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.searchBar.searchTextField.resignFirstResponder()
-    }
-    
     //MARK: - Requests
     
     func loadArticles() {
-        interactor?.loadArticles()
-    }
-    
-    func selectArticle(request: Articles.SelectedArticle.Request) {
-        interactor?.selectArticle(request: request)
+        interactor?.getArticles()
     }
     
     func searchArticle(request: Articles.Search.Request) {
@@ -120,10 +98,6 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.reloadData()
     }
     
-    func displaySelectedArticle() {
-        router?.routeToArticleDetails()
-    }
-    
     //MARK: - Search
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -137,29 +111,21 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.identifier) as? ArticleTableViewCell {
-            let url = URL(string: articles?[indexPath.row].urlToImage ?? "")
-            let processor = DownsamplingImageProcessor(size: cell.iconImageView.bounds.size)
-            cell.iconImageView.kf.indicatorType = .activity
-            cell.iconImageView.kf.setImage(
-                with: url,
-                placeholder: UIImage(named: "placeholderImage"),
-                options: [
-                    .processor(processor),
-                    .scaleFactor(UIScreen.main.scale),
-                    .transition(.fade(1)),
-                    .cacheOriginalImage
-                ])
-            cell.iconImageView.layer.cornerRadius = 5
-            cell.iconImageView.layer.masksToBounds = true
-            cell.titleLabel.text = articles?[indexPath.row].title
-            return cell
-        }
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.identifier) as? ArticleTableViewCell,
+              let title = articles?[indexPath.row].title,
+              let url = URL(string: articles?[indexPath.row].urlToImage ?? "") else { fatalError("Couldn't dequeue cell")}
+        
+        let processor = DownsamplingImageProcessor(size: cell.iconImageView.bounds.size)
+        
+        cell.configure(url: url, processor: processor, title: title)
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        selectArticle(request: Articles.SelectedArticle.Request(index: indexPath.row))
+        guard let article = articles?[indexPath.row] else { return }
+        
+        router?.route(to: .details(article))
     }
 }

@@ -12,7 +12,9 @@
 
 import UIKit
 
-protocol ArticleDetailsBusinessLogic {
+protocol ArticleDetailsInteractorProtocol {
+    func set(presenter: ArticleDetailsPresenterProtocol)
+    
     func loadArticle(request: ArticleDetails.DisplayArticle.Request)
 }
 
@@ -20,10 +22,18 @@ protocol ArticleDetailsDataStore {
     var article: Article! { get set }
 }
 
-class ArticleDetailsInteractor: ArticleDetailsBusinessLogic, ArticleDetailsDataStore {
+class ArticleDetailsInteractor: ArticleDetailsInteractorProtocol, ArticleDetailsDataStore {
     
-    var presenter: ArticleDetailsPresentationLogic?
-    var worker: ArticleDetailsWorker?
+    //MARK: - DI
+    
+    var presenter: ArticleDetailsPresenterProtocol?
+    
+    func set(presenter: ArticleDetailsPresenterProtocol) {
+        self.presenter = presenter
+    }
+    
+    
+    //MARK: - Properties
     
     var article: Article!
     

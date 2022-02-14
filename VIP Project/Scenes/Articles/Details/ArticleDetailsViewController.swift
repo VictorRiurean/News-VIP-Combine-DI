@@ -13,56 +13,35 @@
 import UIKit
 import Kingfisher
 
-protocol ArticleDetailsDisplayLogic: class {
+protocol ArticleDetailsViewControllerProtocol: UIViewControllerRouting {
+    func setupDI(
+        interactor: ArticleDetailsInteractorProtocol,
+        router: ArticleDetailsRouterProtocol
+    )
+    
     func displayArticle(viewModel: ArticleDetails.DisplayArticle.ViewModel)
 }
 
-class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ArticleDetailsDisplayLogic {
+class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ArticleDetailsViewControllerProtocol {
+    
+    // MARK: - DI
+    
+    var interactor: ArticleDetailsInteractorProtocol?
+    var router: ArticleDetailsRouterProtocol?
+    
+    func setupDI(
+        interactor: ArticleDetailsInteractorProtocol,
+        router: ArticleDetailsRouterProtocol
+    ) {
+        self.interactor = interactor
+        self.router = router
+    }
+    
+    // MARK: - Properties
     
     @IBOutlet weak var tableView: UITableView!
     
-    var interactor: ArticleDetailsBusinessLogic?
-    var router: (NSObjectProtocol & ArticleDetailsRoutingLogic & ArticleDetailsDataPassing)?
-    
     var article: Article?
-    
-    //MARK: - Object lifecycle
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-    
-    //MARK: - Setup
-    
-    private func setup() {
-        let viewController = self
-        let interactor = ArticleDetailsInteractor()
-        let presenter = ArticleDetailsPresenter()
-        let router = ArticleDetailsRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
-    }
-    
-    //MARK: - Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
-    }
     
     //MARK: - View lifecycle
     
@@ -85,7 +64,7 @@ class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITab
     //MARK: - Requests
     
     func loadArticle() {
-        let request = ArticleDetails.DisplayArticle.Request(article: self.router?.dataStore?.article)
+        let request = ArticleDetails.DisplayArticle.Request(article: article)
         interactor?.loadArticle(request: request)
     }
     

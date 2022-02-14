@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ArticleTableViewCell: UITableViewCell {
 
@@ -39,6 +40,22 @@ class ArticleTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func configure(url: URL, processor: DownsamplingImageProcessor, title: String) {
+        iconImageView.kf.indicatorType = .activity
+        iconImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "placeholderImage"),
+            options: [
+                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ])
+        iconImageView.layer.cornerRadius = 5
+        iconImageView.layer.masksToBounds = true
+        titleLabel.text = title
     }
     
 }

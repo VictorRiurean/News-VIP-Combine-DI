@@ -12,12 +12,21 @@
 
 import UIKit
 
-protocol ArticleDetailsPresentationLogic {
+protocol ArticleDetailsPresenterProtocol {
+    func set(viewController: ArticleDetailsViewControllerProtocol)
+    
     func presentArticle(response: ArticleDetails.DisplayArticle.Response)
 }
 
-class ArticleDetailsPresenter: ArticleDetailsPresentationLogic {
-    weak var viewController: ArticleDetailsDisplayLogic?
+class ArticleDetailsPresenter: ArticleDetailsPresenterProtocol {
+    
+    //MARK: - DI
+    
+    weak var viewController: ArticleDetailsViewControllerProtocol?
+    
+    func set(viewController: ArticleDetailsViewControllerProtocol) {
+        self.viewController = viewController
+    }
     
     //MARK: - Presenters
     

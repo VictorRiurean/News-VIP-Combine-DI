@@ -8,13 +8,13 @@
 import Foundation
 import Moya
 
-enum APIService {
+enum ArticleTarget {
     case everything
 }
 
 // MARK: - TargetType Protocol Implementation
 
-extension APIService: TargetType {
+extension ArticleTarget: TargetType {
     var baseURL: URL {
         return URL(string: "https://newsapi.org/v2/")!
     }
@@ -36,7 +36,7 @@ extension APIService: TargetType {
     var task: Task {
         switch self {
         case .everything:
-            return .requestParameters(parameters: [ "q": "Apple"], encoding: URLEncoding.queryString)
+            return .requestParameters(parameters: ["q": "Apple"], encoding: URLEncoding.queryString)
         }
     }
     
@@ -45,8 +45,10 @@ extension APIService: TargetType {
     }
     
     var headers: [String: String]? {
-        return ["Content-type": "application/json",
-                "x-api-key": "012e69e373074078a5baf09443871cf7"]
+        return [
+            "Content-type": "application/json",
+            "x-api-key": "012e69e373074078a5baf09443871cf7"
+        ]
     }
     
     public var validationType: ValidationType {

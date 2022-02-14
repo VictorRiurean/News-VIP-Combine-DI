@@ -12,31 +12,45 @@
 
 import UIKit
 
-@objc protocol ArticlesRoutingLogic {
-    func routeToArticleDetails()
+protocol ArticlesRouterProtocol {
+    func set(viewController: ArticlesViewControllerProtocol)
+    
+    func route(to scene: ArticlesRouter.Scene)
 }
 
-protocol ArticlesDataPassing {
-    var dataStore: ArticlesDataStore? { get }
-}
-
-class ArticlesRouter: NSObject, ArticlesRoutingLogic, ArticlesDataPassing {
-    weak var viewController: ArticlesViewController?
-    var dataStore: ArticlesDataStore?
+class ArticlesRouter: NSObject, ArticlesRouterProtocol {
     
-    //MARK: - Routing
+    //MARK: - DI
     
-    func routeToArticleDetails() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let destinationVC = storyboard.instantiateViewController(identifier: "articleDetailsVC") as? ArticleDetailsViewController, var destinationDataStore = destinationVC.router?.dataStore, let sourceDataStore = dataStore {
-            passDataToArticleDetails(source: sourceDataStore, destination: &destinationDataStore)
-            viewController?.navigationController?.pushViewController(destinationVC, animated: true)
-        }
+    weak var viewController: ArticlesViewControllerProtocol?
+    private let articleDetailsStoryboard: Storyboard
+    
+    func set(viewController: ArticlesViewControllerProtocol) {
+        self.viewController = viewController
     }
     
-    //MARK: - Passing data
+    init(
+        articleDetailsStoryboard: Storyboard
+    ) {
+        self.articleDetailsStoryboard = articleDetailsStoryboard
+    }
+}
+
+//MARK: - Routing
+
+extension ArticlesRouter {
     
-    func passDataToArticleDetails(source: ArticlesDataStore, destination: inout ArticleDetailsDataStore) {
-        destination.article = source.selectedArticle
+    enum Scene {
+        case details(Article)
+    }
+    
+    func route(to scene: ArticlesRouter.Scene) {
+        switch scene {
+            case .details(let article):
+                guard let vc = articleDetailsStoryboard.viewController(identifier: "ArticleDetailsViewController" as! StoryboardId) as? ArticleDetailsViewController else { return }
+                
+                vc.article = article
+                viewController?.show(vc, sender: nil)
+        }
     }
 }

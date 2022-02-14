@@ -12,15 +12,17 @@
 
 import UIKit
 
-@objc protocol ArticleDetailsRoutingLogic {
-    //func routeToSomewhere(segue: UIStoryboardSegue?)
+protocol ArticleDetailsRouterProtocol {
+    func set(viewController: ArticleDetailsViewControllerProtocol)
 }
 
-protocol ArticleDetailsDataPassing {
-    var dataStore: ArticleDetailsDataStore? { get }
-}
-
-class ArticleDetailsRouter: NSObject, ArticleDetailsRoutingLogic, ArticleDetailsDataPassing {
-    weak var viewController: ArticleDetailsViewController?
-    var dataStore: ArticleDetailsDataStore?
+class ArticleDetailsRouter: NSObject, ArticleDetailsRouterProtocol {
+    
+    //MARK: - DI
+    
+    weak var viewController: ArticleDetailsViewControllerProtocol?
+    
+    func set(viewController: ArticleDetailsViewControllerProtocol) {
+        self.viewController = viewController
+    }
 }
