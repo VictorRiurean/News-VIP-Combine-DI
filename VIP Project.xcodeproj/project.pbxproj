@@ -55,6 +55,7 @@
 		57919E4726D2AB820068808F /* ImageAndTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57919E4526D2AB820068808F /* ImageAndTitleTableViewCell.xib */; };
 		57919E4C26D2B2290068808F /* ContentAndInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57919E4A26D2B2290068808F /* ContentAndInfoTableViewCell.swift */; };
 		57919E4D26D2B2290068808F /* ContentAndInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57919E4B26D2B2290068808F /* ContentAndInfoTableViewCell.xib */; };
+		57955BD027ECEA30007BDADD /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57955BCF27ECEA30007BDADD /* R.generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		57919E4526D2AB820068808F /* ImageAndTitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageAndTitleTableViewCell.xib; sourceTree = "<group>"; };
 		57919E4A26D2B2290068808F /* ContentAndInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentAndInfoTableViewCell.swift; sourceTree = "<group>"; };
 		57919E4B26D2B2290068808F /* ContentAndInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentAndInfoTableViewCell.xib; sourceTree = "<group>"; };
+		57955BCF27ECEA30007BDADD /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		C98934A83D4C7E66AA248DC2 /* Pods-VIP Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIP Project.debug.xcconfig"; path = "Target Support Files/Pods-VIP Project/Pods-VIP Project.debug.xcconfig"; sourceTree = "<group>"; };
 		E3F76769CFCAD0666074042D /* Pods_VIP_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VIP_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -239,6 +241,7 @@
 		57919DD126D154760068808F /* VIP Project */ = {
 			isa = PBXGroup;
 			children = (
+				57955BCF27ECEA30007BDADD /* R.generated.swift */,
 				57919DD226D154760068808F /* AppDelegate.swift */,
 				57919DD426D154760068808F /* App.swift */,
 				57919DD626D154760068808F /* RootNavigator.swift */,
@@ -390,6 +393,7 @@
 			buildConfigurationList = 57919DE326D154770068808F /* Build configuration list for PBXNativeTarget "VIP Project" */;
 			buildPhases = (
 				D821CEF0B534FCAA95E95F84 /* [CP] Check Pods Manifest.lock */,
+				57955BCE27ECE8DB007BDADD /* ShellScript */,
 				57919DCB26D154760068808F /* Sources */,
 				57919DCC26D154760068808F /* Frameworks */,
 				57919DCD26D154760068808F /* Resources */,
@@ -453,6 +457,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		57955BCE27ECE8DB007BDADD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.generated.swift\"\n";
+		};
 		C23CDF5C7A3F40395423CD94 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -528,6 +551,7 @@
 				57919E0226D163B30068808F /* ArticlesRouter.swift in Sources */,
 				57907D1A27B024DF00A67C66 /* TopViewControllerProviderProtocol.swift in Sources */,
 				57907D1227B0218300A67C66 /* SharedAssembly.swift in Sources */,
+				57955BD027ECEA30007BDADD /* R.generated.swift in Sources */,
 				57919DD526D154760068808F /* App.swift in Sources */,
 				57907D3027B02E2C00A67C66 /* ArticleListStoryboardId.swift in Sources */,
 				57907D3227B02E3A00A67C66 /* ArticleListStoryboard.swift in Sources */,

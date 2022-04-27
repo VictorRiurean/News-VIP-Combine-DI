@@ -47,7 +47,7 @@ class SharedAssembly: Assembly {
     }
     
     func assembleStoryboards(_ container: Container) {
-        container.register(Storyboard.self, name: "ArticleList") { _ in
+        container.register(Storyboard.self, name: R.storyboard.articleList.name) { _ in
             return ArticleListStoryboard(sharedContainer: container, assembly: ArticleListAssembly())
         }
     }
