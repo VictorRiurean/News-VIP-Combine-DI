@@ -23,8 +23,27 @@ class SharedAssembly: Assembly {
         container.register(RootNavigatorProtocol.self) { resolver in
             return RootNavigator(
                 application: resolver ~> UIApplicationProtocol.self,
-                articleListStoryboard: resolver ~> (Storyboard.self, name: "ArticleList")
+                articleListStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.articleList.name),
+                tabBarStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.tabBar.name)
             )
+        }
+        
+        // MARK: - Article Service
+        
+        container.register(ArticleServiceProtocol.self) { resolver in
+            return ArticleService(client: MoyaClient<ArticleTarget>(networkObserver: resolver ~> NetworkObserverProtocol.self))
+        }
+        
+        // MARK: - TabBar
+        
+        container.register(Storyboard.self, name: R.storyboard.tabBar.name) { _ in
+            return TabBarStoryboard(sharedContainer: container, assembly: TabBarAssembly())
+        }
+        
+        //MARK: - ArticleList
+        
+        container.register(Storyboard.self, name: R.storyboard.articleList.name) { _ in
+            return ArticleListStoryboard(sharedContainer: container, assembly: ArticleListAssembly())
         }
         
         // MARK: - Protocols

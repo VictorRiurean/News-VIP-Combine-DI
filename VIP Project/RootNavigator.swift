@@ -10,7 +10,7 @@ import Foundation
 //sourcery: AutoMockable
 protocol RootNavigatorProtocol: AnyObject {
     func setRootViewController()
-    func setLoginAsRoot()
+    func setTabBarAsRoot()
     func setHomeAsRoot()
 }
 
@@ -18,6 +18,7 @@ class RootNavigator: RootNavigatorProtocol {
     
     private var application: UIApplicationProtocol
     private let articleListStoryboard: Storyboard
+    private let tabBarStoryBoard: Storyboard
     private var onboardingStatus: OnboardingStatus = .initial
     
     enum OnboardingStatus {
@@ -26,16 +27,19 @@ class RootNavigator: RootNavigatorProtocol {
     
     init(
         application: UIApplicationProtocol,
-        articleListStoryboard: Storyboard
+        articleListStoryboard: Storyboard,
+        tabBarStoryboard: Storyboard
     ) {
         self.application = application
         self.articleListStoryboard = articleListStoryboard
+        self.tabBarStoryBoard = tabBarStoryboard
     }
     
     func setRootViewController() {
     }
     
-    func setLoginAsRoot() {
+    func setTabBarAsRoot() {
+        application.rootViewController = tabBarStoryBoard.initial()
     }
     
     func setHomeAsRoot() {

@@ -17,7 +17,7 @@ class ArticleListAssembly: Assembly {
         container.autoregister(ArticlesPresenterProtocol.self, initializer: ArticlesPresenter.init)
         container.autoregister(ArticlesInteractorProtocol.self, initializer: ArticlesInteractor.init)
         container.register(ArticlesRouterProtocol.self) { resolver in
-            return ArticlesRouter(articleDetailsStoryboard: resolver ~> (Storyboard.self, name: "ArticleList"))
+            return ArticlesRouter(articleDetailsStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.articleList.name))
         }
         
         container.storyboardInitCompleted(ArticlesViewController.self) { resolver, vc in

@@ -11,6 +11,7 @@ import UIKit
 protocol UIApplicationProtocol {
 
     var keyWindow: UIWindow? { get }
+    var tabBarController: TabBarViewControllerProtocol? { get }
     var rootViewController: UIViewController? { get set }
     var settingsURL: URL? { get }
     var locationSettingsURL: URL? { get }
@@ -32,6 +33,16 @@ extension UIApplication: UIApplicationProtocol {
         return URL(string: UIApplication.openSettingsURLString)
     }
 
+    var tabBarController: TabBarViewControllerProtocol? {
+        guard let containerView = keyWindow?.rootViewController else {
+            assertionFailure("Failed to load ContainerViewController.")
+            
+            return nil
+        }
+        
+        return containerView as? TabBarViewControllerProtocol
+    }
+    
     var rootViewController: UIViewController? {
         get { return windows.first?.rootViewController }
         set { windows.first?.rootViewController = newValue }

@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		53BE81576469A6D1535539BC /* Pods_VIP_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F76769CFCAD0666074042D /* Pods_VIP_Project.framework */; };
+		57858079281989CF00082243 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57858078281989CF00082243 /* TabBarViewController.swift */; };
+		5785807B281989DA00082243 /* TabBarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785807A281989DA00082243 /* TabBarInteractor.swift */; };
+		5785807D281989E500082243 /* TabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785807C281989E500082243 /* TabBarPresenter.swift */; };
+		5785807F281989F600082243 /* TabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785807E281989F600082243 /* TabBarRouter.swift */; };
+		5785808128198A0100082243 /* TabBarProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785808028198A0100082243 /* TabBarProvider.swift */; };
+		5785808328198A0D00082243 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785808228198A0D00082243 /* TabBarItem.swift */; };
+		5785808628198B8600082243 /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785808528198B8600082243 /* AppNavigationController.swift */; };
+		578580882819D52E00082243 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 578580872819D52E00082243 /* TabBar.storyboard */; };
+		5785808B2819D6CE00082243 /* TabBarAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785808A2819D6CE00082243 /* TabBarAssembly.swift */; };
+		5785808D2819D6D900082243 /* TabBarStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785808C2819D6D900082243 /* TabBarStoryboard.swift */; };
 		57907D0D27B0202A00A67C66 /* NetworkObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57907D0C27B0202A00A67C66 /* NetworkObserver.swift */; };
 		57907D1027B0209600A67C66 /* NWPathMonitorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57907D0F27B0209600A67C66 /* NWPathMonitorProtocol.swift */; };
 		57907D1227B0218300A67C66 /* SharedAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57907D1127B0218300A67C66 /* SharedAssembly.swift */; };
@@ -60,6 +70,16 @@
 
 /* Begin PBXFileReference section */
 		49FF6626858B5499B5CB58CA /* Pods-VIP Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIP Project.release.xcconfig"; path = "Target Support Files/Pods-VIP Project/Pods-VIP Project.release.xcconfig"; sourceTree = "<group>"; };
+		57858078281989CF00082243 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		5785807A281989DA00082243 /* TabBarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarInteractor.swift; sourceTree = "<group>"; };
+		5785807C281989E500082243 /* TabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPresenter.swift; sourceTree = "<group>"; };
+		5785807E281989F600082243 /* TabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarRouter.swift; sourceTree = "<group>"; };
+		5785808028198A0100082243 /* TabBarProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarProvider.swift; sourceTree = "<group>"; };
+		5785808228198A0D00082243 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		5785808528198B8600082243 /* AppNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
+		578580872819D52E00082243 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		5785808A2819D6CE00082243 /* TabBarAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAssembly.swift; sourceTree = "<group>"; };
+		5785808C2819D6D900082243 /* TabBarStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarStoryboard.swift; sourceTree = "<group>"; };
 		57907D0C27B0202A00A67C66 /* NetworkObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkObserver.swift; sourceTree = "<group>"; };
 		57907D0F27B0209600A67C66 /* NWPathMonitorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NWPathMonitorProtocol.swift; sourceTree = "<group>"; };
 		57907D1127B0218300A67C66 /* SharedAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedAssembly.swift; sourceTree = "<group>"; };
@@ -126,11 +146,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57858077281989B200082243 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				578580892819D6C000082243 /* DI */,
+				57858078281989CF00082243 /* TabBarViewController.swift */,
+				5785807A281989DA00082243 /* TabBarInteractor.swift */,
+				5785807C281989E500082243 /* TabBarPresenter.swift */,
+				5785807E281989F600082243 /* TabBarRouter.swift */,
+				5785808028198A0100082243 /* TabBarProvider.swift */,
+				5785808228198A0D00082243 /* TabBarItem.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		5785808428198B3400082243 /* App Navigator */ = {
+			isa = PBXGroup;
+			children = (
+				5785808528198B8600082243 /* AppNavigationController.swift */,
+			);
+			path = "App Navigator";
+			sourceTree = "<group>";
+		};
+		578580892819D6C000082243 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				5785808A2819D6CE00082243 /* TabBarAssembly.swift */,
+				5785808C2819D6D900082243 /* TabBarStoryboard.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
 		57906A1627B01F1000B083AD /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				57907D0C27B0202A00A67C66 /* NetworkObserver.swift */,
 				57907D1127B0218300A67C66 /* SharedAssembly.swift */,
+				5785808428198B3400082243 /* App Navigator */,
 				57907D2327B0297A00A67C66 /* Errors */,
 				57907D1E27B0267700A67C66 /* Views */,
 				57907D1D27B0266900A67C66 /* Extensions */,
@@ -190,6 +242,7 @@
 			children = (
 				57919DD826D154760068808F /* ArticleList.storyboard */,
 				57919DDD26D154770068808F /* LaunchScreen.storyboard */,
+				578580872819D52E00082243 /* TabBar.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -269,6 +322,7 @@
 		57919DE826D154E30068808F /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				57858077281989B200082243 /* TabBar */,
 				57919E3426D2A7EB0068808F /* About */,
 				57919E3226D2A7D50068808F /* Articles */,
 			);
@@ -450,6 +504,7 @@
 				57919DDF26D154770068808F /* LaunchScreen.storyboard in Resources */,
 				57919E4726D2AB820068808F /* ImageAndTitleTableViewCell.xib in Resources */,
 				57919DDC26D154770068808F /* Assets.xcassets in Resources */,
+				578580882819D52E00082243 /* TabBar.storyboard in Resources */,
 				57919DDA26D154760068808F /* ArticleList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,17 +577,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5785808D2819D6D900082243 /* TabBarStoryboard.swift in Sources */,
 				57919E2C26D29CA50068808F /* ArticleDetailsRouter.swift in Sources */,
 				57919E4C26D2B2290068808F /* ContentAndInfoTableViewCell.swift in Sources */,
 				57907D2727B02A1E00A67C66 /* AppError.swift in Sources */,
 				57907D1027B0209600A67C66 /* NWPathMonitorProtocol.swift in Sources */,
+				57858079281989CF00082243 /* TabBarViewController.swift in Sources */,
 				57919E0926D165840068808F /* ArticleModel.swift in Sources */,
+				5785808328198A0D00082243 /* TabBarItem.swift in Sources */,
 				57907D2227B0287600A67C66 /* Provider.swift in Sources */,
 				57919E3D26D2A8150068808F /* AboutRouter.swift in Sources */,
 				57919E2F26D29CA50068808F /* ArticleDetailsInteractor.swift in Sources */,
 				57907D3427B02E4800A67C66 /* ArticleListAssembly.swift in Sources */,
+				5785807F281989F600082243 /* TabBarRouter.swift in Sources */,
 				57919E3E26D2A8150068808F /* AboutModels.swift in Sources */,
 				57919E2E26D29CA50068808F /* ArticleDetailsViewController.swift in Sources */,
+				5785807B281989DA00082243 /* TabBarInteractor.swift in Sources */,
 				57919E3F26D2A8150068808F /* AboutViewController.swift in Sources */,
 				57907D2D27B02C4C00A67C66 /* ArticleService.swift in Sources */,
 				57919E2A26D29CA50068808F /* ArticleDetailsPresenter.swift in Sources */,
@@ -552,12 +612,16 @@
 				57907D1A27B024DF00A67C66 /* TopViewControllerProviderProtocol.swift in Sources */,
 				57907D1227B0218300A67C66 /* SharedAssembly.swift in Sources */,
 				57955BD027ECEA30007BDADD /* R.generated.swift in Sources */,
+				5785808128198A0100082243 /* TabBarProvider.swift in Sources */,
 				57919DD526D154760068808F /* App.swift in Sources */,
 				57907D3027B02E2C00A67C66 /* ArticleListStoryboardId.swift in Sources */,
 				57907D3227B02E3A00A67C66 /* ArticleListStoryboard.swift in Sources */,
+				5785807D281989E500082243 /* TabBarPresenter.swift in Sources */,
 				57907D2527B0298B00A67C66 /* ClientError.swift in Sources */,
 				57907D1827B0246B00A67C66 /* DispatchQueueProtocol.swift in Sources */,
+				5785808B2819D6CE00082243 /* TabBarAssembly.swift in Sources */,
 				57907D0D27B0202A00A67C66 /* NetworkObserver.swift in Sources */,
+				5785808628198B8600082243 /* AppNavigationController.swift in Sources */,
 				57907D1627B022EB00A67C66 /* UIApplicationProtocol.swift in Sources */,
 				57919E0026D163B30068808F /* ArticlesPresenter.swift in Sources */,
 				57907D2B27B02B3E00A67C66 /* ProviderError.swift in Sources */,

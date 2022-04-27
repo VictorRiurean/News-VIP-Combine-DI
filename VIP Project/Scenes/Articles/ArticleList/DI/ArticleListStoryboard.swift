@@ -17,7 +17,8 @@ class ArticleListStoryboard: Storyboard {
     init(sharedContainer: Container, assembly: Assembly) {
         self.assembly = assembly
         container = Container(parent: sharedContainer)
-        storyboard = SwinjectStoryboard.create(name: "ArticleList",
+        assembly.assemble(container: container)
+        storyboard = SwinjectStoryboard.create(name: R.storyboard.articleList.name,
                                                bundle: nil,
                                                container: container)
     }
