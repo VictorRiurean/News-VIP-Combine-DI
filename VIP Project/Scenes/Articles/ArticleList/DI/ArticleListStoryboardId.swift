@@ -10,7 +10,6 @@ import Foundation
 enum ArticleListStoryboardId: StoryboardId {
     case overview
     case detail
-    case about
     
     var identifier: String {
         switch self {
@@ -18,8 +17,6 @@ enum ArticleListStoryboardId: StoryboardId {
                 return "ArticleListViewController"
             case .detail:
                 return "ArticleDetailsViewController"
-            case .about:
-                return "AboutViewController"
         }
     }
 }

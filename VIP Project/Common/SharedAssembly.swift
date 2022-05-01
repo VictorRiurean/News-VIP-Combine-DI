@@ -40,10 +40,16 @@ class SharedAssembly: Assembly {
             return TabBarStoryboard(sharedContainer: container, assembly: TabBarAssembly())
         }
         
-        //MARK: - ArticleList
+        // MARK: - ArticleList Storyboard
         
         container.register(Storyboard.self, name: R.storyboard.articleList.name) { _ in
             return ArticleListStoryboard(sharedContainer: container, assembly: ArticleListAssembly())
+        }
+        
+        //MARK: - About Storyboard
+        
+        container.register(Storyboard.self, name: R.storyboard.about.name) { _ in
+            return AboutStoryboard(sharedContainer: container, assembly: AboutAssembly())
         }
         
         // MARK: - Protocols

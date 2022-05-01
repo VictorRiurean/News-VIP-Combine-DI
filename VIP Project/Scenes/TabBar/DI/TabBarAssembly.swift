@@ -36,7 +36,10 @@ class TabBarAssembly: Assembly {
         // MARK: - TabBar ViewModel Provider
         
         container.register(TabBarViewModelProviderProtocol.self) { resolver in
-            return TabBarViewModelProvider(articleListStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.articleList.name))
+            return TabBarViewModelProvider(
+                articleListStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.articleList.name),
+                aboutStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.about.name)
+            )
         }
     }
 }

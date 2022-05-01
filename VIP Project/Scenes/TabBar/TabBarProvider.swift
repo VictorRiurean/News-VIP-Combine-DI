@@ -16,17 +16,24 @@ protocol TabBarViewModelProviderProtocol {
 class TabBarViewModelProvider: TabBarViewModelProviderProtocol {
 
     private let articleListStoryboard: Storyboard
+    private let aboutStoryboard: Storyboard
 
-    init(articleListStoryboard: Storyboard) {
+    init(
+        articleListStoryboard: Storyboard,
+        aboutStoryboard: Storyboard
+    ) {
         self.articleListStoryboard = articleListStoryboard
+        self.aboutStoryboard = aboutStoryboard
     }
 
     func viewModel(for item: TabBarItem) -> TabBarItemViewModel {
         var storyboard: Storyboard?
         
         switch item {
-            case .home, .about:
+            case .home:
                 storyboard = articleListStoryboard
+            case .about:
+                storyboard = aboutStoryboard
         }
         
         return TabBarItemViewModel(

@@ -89,14 +89,23 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
   struct storyboard {
+    /// Storyboard `About`.
+    static let about = _R.storyboard.about()
     /// Storyboard `ArticleList`.
     static let articleList = _R.storyboard.articleList()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `TabBar`.
     static let tabBar = _R.storyboard.tabBar()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "About", bundle: ...)`
+    static func about(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.about)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "ArticleList", bundle: ...)`
@@ -313,6 +322,9 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
+      try about.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try articleList.validate()
       #endif
       #if os(iOS) || os(tvOS)
@@ -324,16 +336,37 @@ struct _R: Rswift.Validatable {
     }
 
     #if os(iOS) || os(tvOS)
-    struct articleList: Rswift.StoryboardResourceType, Rswift.Validatable {
+    struct about: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = AboutViewController
+
       let aboutViewController = StoryboardViewControllerResource<AboutViewController>(identifier: "AboutViewController")
-      let articleDetailsViewController = StoryboardViewControllerResource<ArticleDetailsViewController>(identifier: "ArticleDetailsViewController")
-      let articlesViewController = StoryboardViewControllerResource<ArticlesViewController>(identifier: "ArticlesViewController")
       let bundle = R.hostingBundle
-      let name = "ArticleList"
+      let name = "About"
 
       func aboutViewController(_: Void = ()) -> AboutViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: aboutViewController)
       }
+
+      static func validate() throws {
+        if UIKit.UIImage(named: "capture", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'capture' is used in storyboard 'About', but couldn't be loaded.") }
+        if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "info.circle") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'info.circle' is used in storyboard 'About', but couldn't be loaded.") } }
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+        if _R.storyboard.about().aboutViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'aboutViewController' could not be loaded from storyboard 'About' as 'AboutViewController'.") }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct articleList: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = ArticlesViewController
+
+      let articleDetailsViewController = StoryboardViewControllerResource<ArticleDetailsViewController>(identifier: "ArticleDetailsViewController")
+      let articlesViewController = StoryboardViewControllerResource<ArticlesViewController>(identifier: "ArticlesViewController")
+      let bundle = R.hostingBundle
+      let name = "ArticleList"
 
       func articleDetailsViewController(_: Void = ()) -> ArticleDetailsViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: articleDetailsViewController)
@@ -344,11 +377,8 @@ struct _R: Rswift.Validatable {
       }
 
       static func validate() throws {
-        if UIKit.UIImage(named: "capture", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'capture' is used in storyboard 'ArticleList', but couldn't be loaded.") }
-        if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "info.circle") == nil { throw Rswift.ValidationError(description: "[R.swift] System image named 'info.circle' is used in storyboard 'ArticleList', but couldn't be loaded.") } }
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
-        if _R.storyboard.articleList().aboutViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'aboutViewController' could not be loaded from storyboard 'ArticleList' as 'AboutViewController'.") }
         if _R.storyboard.articleList().articleDetailsViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'articleDetailsViewController' could not be loaded from storyboard 'ArticleList' as 'ArticleDetailsViewController'.") }
         if _R.storyboard.articleList().articlesViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'articlesViewController' could not be loaded from storyboard 'ArticleList' as 'ArticlesViewController'.") }
       }

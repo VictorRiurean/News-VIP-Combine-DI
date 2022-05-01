@@ -66,6 +66,10 @@
 		57919E4C26D2B2290068808F /* ContentAndInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57919E4A26D2B2290068808F /* ContentAndInfoTableViewCell.swift */; };
 		57919E4D26D2B2290068808F /* ContentAndInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57919E4B26D2B2290068808F /* ContentAndInfoTableViewCell.xib */; };
 		57955BD027ECEA30007BDADD /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57955BCF27ECEA30007BDADD /* R.generated.swift */; };
+		57A747A2281F1A750008BC47 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57A747A1281F1A750008BC47 /* About.storyboard */; };
+		57A747A5281F1B380008BC47 /* AboutStoryboardId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A747A4281F1B380008BC47 /* AboutStoryboardId.swift */; };
+		57A747A7281F1B470008BC47 /* AboutStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A747A6281F1B470008BC47 /* AboutStoryboard.swift */; };
+		57A747A9281F1B540008BC47 /* AboutAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A747A8281F1B540008BC47 /* AboutAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,6 +134,10 @@
 		57919E4A26D2B2290068808F /* ContentAndInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentAndInfoTableViewCell.swift; sourceTree = "<group>"; };
 		57919E4B26D2B2290068808F /* ContentAndInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentAndInfoTableViewCell.xib; sourceTree = "<group>"; };
 		57955BCF27ECEA30007BDADD /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		57A747A1281F1A750008BC47 /* About.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
+		57A747A4281F1B380008BC47 /* AboutStoryboardId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutStoryboardId.swift; sourceTree = "<group>"; };
+		57A747A6281F1B470008BC47 /* AboutStoryboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutStoryboard.swift; sourceTree = "<group>"; };
+		57A747A8281F1B540008BC47 /* AboutAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAssembly.swift; sourceTree = "<group>"; };
 		C98934A83D4C7E66AA248DC2 /* Pods-VIP Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIP Project.debug.xcconfig"; path = "Target Support Files/Pods-VIP Project/Pods-VIP Project.debug.xcconfig"; sourceTree = "<group>"; };
 		E3F76769CFCAD0666074042D /* Pods_VIP_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VIP_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -243,6 +251,7 @@
 				57919DD826D154760068808F /* ArticleList.storyboard */,
 				57919DDD26D154770068808F /* LaunchScreen.storyboard */,
 				578580872819D52E00082243 /* TabBar.storyboard */,
+				57A747A1281F1A750008BC47 /* About.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -402,6 +411,7 @@
 		57919E3426D2A7EB0068808F /* About */ = {
 			isa = PBXGroup;
 			children = (
+				57A747A3281F1B230008BC47 /* DI */,
 				57919E3926D2A8150068808F /* AboutViewController.swift */,
 				57919E3A26D2A8150068808F /* AboutInteractor.swift */,
 				57919E3526D2A8150068808F /* AboutPresenter.swift */,
@@ -420,6 +430,16 @@
 				57919E4B26D2B2290068808F /* ContentAndInfoTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		57A747A3281F1B230008BC47 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				57A747A4281F1B380008BC47 /* AboutStoryboardId.swift */,
+				57A747A6281F1B470008BC47 /* AboutStoryboard.swift */,
+				57A747A8281F1B540008BC47 /* AboutAssembly.swift */,
+			);
+			path = DI;
 			sourceTree = "<group>";
 		};
 		AAA942A8FCF1D732C32C62AE /* Pods */ = {
@@ -501,6 +521,7 @@
 			files = (
 				57919E0F26D272230068808F /* ArticleTableViewCell.xib in Resources */,
 				57919E4D26D2B2290068808F /* ContentAndInfoTableViewCell.xib in Resources */,
+				57A747A2281F1A750008BC47 /* About.storyboard in Resources */,
 				57919DDF26D154770068808F /* LaunchScreen.storyboard in Resources */,
 				57919E4726D2AB820068808F /* ImageAndTitleTableViewCell.xib in Resources */,
 				57919DDC26D154770068808F /* Assets.xcassets in Resources */,
@@ -598,12 +619,15 @@
 				57919E2A26D29CA50068808F /* ArticleDetailsPresenter.swift in Sources */,
 				57919DD726D154760068808F /* RootNavigator.swift in Sources */,
 				57919E4626D2AB820068808F /* ImageAndTitleTableViewCell.swift in Sources */,
+				57A747A9281F1B540008BC47 /* AboutAssembly.swift in Sources */,
 				57907D1427B0223100A67C66 /* Storyboard.swift in Sources */,
 				57919E4026D2A8150068808F /* AboutInteractor.swift in Sources */,
 				57907D2927B02A7100A67C66 /* String + Localization.swift in Sources */,
 				57919E0326D163B30068808F /* ArticlesModels.swift in Sources */,
 				57919E0E26D272230068808F /* ArticleTableViewCell.swift in Sources */,
 				57919E0426D163B30068808F /* ArticlesViewController.swift in Sources */,
+				57A747A7281F1B470008BC47 /* AboutStoryboard.swift in Sources */,
+				57A747A5281F1B380008BC47 /* AboutStoryboardId.swift in Sources */,
 				57919DF726D160780068808F /* ArticleTarget.swift in Sources */,
 				57919DD326D154760068808F /* AppDelegate.swift in Sources */,
 				57919E1326D274490068808F /* UIColor + MyColors.swift in Sources */,
