@@ -195,10 +195,11 @@
 				57907D0C27B0202A00A67C66 /* NetworkObserver.swift */,
 				57907D1127B0218300A67C66 /* SharedAssembly.swift */,
 				5785808428198B3400082243 /* App Navigator */,
+				571F2FC2283D2D8300420B8F /* Constants */,
 				57907D2327B0297A00A67C66 /* Errors */,
-				57907D1E27B0267700A67C66 /* Views */,
 				57907D1D27B0266900A67C66 /* Extensions */,
 				57907D0E27B0208500A67C66 /* Protocols */,
+				57907D1E27B0267700A67C66 /* Views */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -311,7 +312,6 @@
 				57919DD226D154760068808F /* AppDelegate.swift */,
 				57919DD426D154760068808F /* App.swift */,
 				57919DD626D154760068808F /* RootNavigator.swift */,
-				571F2FC2283D2D8300420B8F /* Constants */,
 				57906A1627B01F1000B083AD /* Common */,
 				57919DE726D154D20068808F /* Network */,
 				57907D1F27B026DD00A67C66 /* Storyboards */,

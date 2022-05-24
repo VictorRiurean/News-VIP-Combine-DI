@@ -25,31 +25,8 @@ protocol ClientProtocol {
 class MoyaClient<Target: TargetType>: ClientProtocol {
 
     private let provider: MoyaProvider<Target>
-//    private let authManager: AuthManagerProtocol
     private let networkObserver: NetworkObserverProtocol
-
-//    init(
-////        authManager: AuthManagerProtocol,
-//        networkObserver: NetworkObserverProtocol) {
-//        self.networkObserver = networkObserver
-////        self.authManager = authManager
-//        provider = MoyaProvider<Target>(
-//            endpointClosure: MoyaProvider<Target>.defaultEndpointMapping,
-//            requestClosure: { (endpoint, completion) in
-//                guard var request = try? endpoint.urlRequest() else {
-//                    return completion(.failure(MoyaError.underlying(ClientError.unknownError, nil)))
-//                }
-//                request.timeoutInterval = 180
-////                authManager
-////                    .sign(request)
-////                    .replaceError(with: request)
-////                    .sink(receiveValue: { completion(.success($0)) })
-//            },
-//            stubClosure: MoyaProvider.neverStub,
-//            callbackQueue: nil,
-//            session: MoyaProvider<Target>.defaultAlamofireSession(),
-//            plugins: [NetworkLoggerPlugin()],
-//            trackInflights: false)
+    
     init(networkObserver: NetworkObserverProtocol) {
         self.networkObserver = networkObserver
         
