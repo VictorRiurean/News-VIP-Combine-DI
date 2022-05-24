@@ -15,15 +15,14 @@ import UIKit
 protocol ArticlesPresenterProtocol {
     func set(viewController: ArticlesViewControllerProtocol)
     
-    func presentArticles(response: Articles.List.Response)
-    func presentFilteredArticles(response: Articles.Search.Response)
+    func presentArticles(_ articles: [Article])
 }
 
 class ArticlesPresenter: ArticlesPresenterProtocol {
     
     // MARK: - DI
     
-    weak var viewController: ArticlesViewControllerProtocol?
+    private weak var viewController: ArticlesViewControllerProtocol?
     
     func set(viewController: ArticlesViewControllerProtocol) {
         self.viewController = viewController
@@ -31,19 +30,7 @@ class ArticlesPresenter: ArticlesPresenterProtocol {
     
     //MARK: - Presenters
     
-    func presentArticles(response: Articles.List.Response) {
-        var viewModel = Articles.List.ViewModel()
-        viewModel.articles = response.articles
-        viewController?.displayArticles(viewModel: viewModel)
-    }
-    
-    func presentFilteredArticles(response: Articles.Search.Response) {
-        guard let articles = response.articles else {
-            return
-        }
-        
-        var viewModel = Articles.Search.ViewModel()
-        viewModel.articles = articles
-        viewController?.displayArticles(viewModel: viewModel)
+    func presentArticles(_ articles: [Article]) {
+        viewController?.displayArticles(articles)
     }
 }

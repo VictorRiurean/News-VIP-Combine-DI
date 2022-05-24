@@ -18,9 +18,9 @@ protocol TabBarInteractorProtocol {
 
 class TabBarInteractor: NSObject {
     
-    private var presenter: TabBarPresenterProtocol
-    private var tabBarProviderProtocol: TabBarViewModelProviderProtocol
-    private var uiApplication: UIApplicationProtocol
+    private let presenter: TabBarPresenterProtocol
+    private let tabBarProviderProtocol: TabBarViewModelProviderProtocol
+    private let uiApplication: UIApplicationProtocol
     
     private var anyCancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     

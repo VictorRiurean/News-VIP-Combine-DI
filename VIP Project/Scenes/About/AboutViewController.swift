@@ -17,17 +17,14 @@ protocol AboutViewControllerProtocol: UIViewControllerRouting {
         interactor: AboutInteractorProtocol,
         router: AboutRouterProtocol
     )
-    
-    func displayAboutData(viewModel: About.AboutData.ViewModel)
-    func goToLink(viewModel: About.Navigate.ViewModel)
 }
 
 class AboutViewController: UIViewController, AboutViewControllerProtocol {
    
     // MARK: - DI
     
-    var interactor: AboutInteractorProtocol?
-    var router: AboutRouterProtocol?
+    private var interactor: AboutInteractorProtocol?
+    private var router: AboutRouterProtocol?
     
     func setupDI(
         interactor: AboutInteractorProtocol,
@@ -37,39 +34,17 @@ class AboutViewController: UIViewController, AboutViewControllerProtocol {
         self.router = router
     }
     
-    // MARK: - Properties
-    
-    @IBOutlet weak var aboutLabel: UILabel!
-    @IBOutlet weak var myImageView: UIImageView!
-    
     //MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAboutData()
     }
     
-    //MARK: - Requests
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func getAboutData() {
-        interactor?.getAboutData()
-    }
+    //MARK: - Actions
     
     @IBAction func didTouchLink(_ sender: Any) {
-        interactor?.goToLink()
-    }
-    
-    func goToLink(viewModel: About.Navigate.ViewModel) {
-        let url = viewModel.url
-        UIApplication.shared.open(url)
-    }
-
-    //MARK: - Displays
-    
-    func displayAboutData(viewModel: About.AboutData.ViewModel) {
-        aboutLabel.text = viewModel.aboutText
-        myImageView.image = viewModel.myImage
+        guard let url = URL(string: StringConstants.gitHub.rawValue) else { return }
+        
+        router?.route(to: .link(url))
     }
 }

@@ -24,8 +24,8 @@ class TabBarViewController: UITabBarController {
     
     // MARK: DI
     
-    var interactor: TabBarInteractorProtocol?
-    var router: TabBarRouterProtocol?
+    private var interactor: TabBarInteractorProtocol?
+    private var router: TabBarRouterProtocol?
     
     func set(interactor: TabBarInteractorProtocol) {
         self.interactor = interactor

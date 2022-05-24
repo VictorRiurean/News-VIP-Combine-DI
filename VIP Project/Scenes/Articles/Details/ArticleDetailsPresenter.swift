@@ -14,24 +14,15 @@ import UIKit
 
 protocol ArticleDetailsPresenterProtocol {
     func set(viewController: ArticleDetailsViewControllerProtocol)
-    
-    func presentArticle(response: ArticleDetails.DisplayArticle.Response)
 }
 
 class ArticleDetailsPresenter: ArticleDetailsPresenterProtocol {
     
     //MARK: - DI
     
-    weak var viewController: ArticleDetailsViewControllerProtocol?
+    private weak var viewController: ArticleDetailsViewControllerProtocol?
     
     func set(viewController: ArticleDetailsViewControllerProtocol) {
         self.viewController = viewController
-    }
-    
-    //MARK: - Presenters
-    
-    func presentArticle(response: ArticleDetails.DisplayArticle.Response) {
-        let viewModel = ArticleDetails.DisplayArticle.ViewModel(article: response.article)
-        viewController?.displayArticle(viewModel: viewModel)
     }
 }

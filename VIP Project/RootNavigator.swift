@@ -18,6 +18,7 @@ class RootNavigator: RootNavigatorProtocol {
     
     private var application: UIApplicationProtocol
     private let articleListStoryboard: Storyboard
+    private let aboutStoryboard: Storyboard
     private let tabBarStoryBoard: Storyboard
     private var onboardingStatus: OnboardingStatus = .initial
     
@@ -28,10 +29,12 @@ class RootNavigator: RootNavigatorProtocol {
     init(
         application: UIApplicationProtocol,
         articleListStoryboard: Storyboard,
+        aboutStoryboard: Storyboard,
         tabBarStoryboard: Storyboard
     ) {
         self.application = application
         self.articleListStoryboard = articleListStoryboard
+        self.aboutStoryboard = aboutStoryboard
         self.tabBarStoryBoard = tabBarStoryboard
     }
     

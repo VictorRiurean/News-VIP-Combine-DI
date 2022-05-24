@@ -22,7 +22,7 @@ class ArticlesRouter: NSObject, ArticlesRouterProtocol {
     
     //MARK: - DI
     
-    weak var viewController: ArticlesViewControllerProtocol?
+    private weak var viewController: ArticlesViewControllerProtocol?
     private let articleDetailsStoryboard: Storyboard
     
     func set(viewController: ArticlesViewControllerProtocol) {
@@ -47,9 +47,10 @@ extension ArticlesRouter {
     func route(to scene: ArticlesRouter.Scene) {
         switch scene {
             case .details(let article):
-                guard let vc = articleDetailsStoryboard.viewController(identifier: "ArticleDetailsViewController" as! StoryboardId) as? ArticleDetailsViewController else { return }
-                
+                guard let vc = articleDetailsStoryboard.viewController(identifier: ArticleListStoryboardId.detail) as? ArticleDetailsViewController else { return }
+                    
                 vc.article = article
+            
                 viewController?.show(vc, sender: nil)
         }
     }

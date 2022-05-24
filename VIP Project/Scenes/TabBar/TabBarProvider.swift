@@ -40,7 +40,8 @@ class TabBarViewModelProvider: TabBarViewModelProviderProtocol {
             icon: item.icon,
             title: item.title,
             viewController: storyboard?.initial(),
-            tag: item.tag)
+            tag: item.tag
+        )
     }
 }
 

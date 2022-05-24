@@ -17,7 +17,7 @@ protocol TabBarRouterProtocol {
 
 class TabBarRouter: NSObject, TabBarRouterProtocol {
     
-    weak var viewController: TabBarViewControllerProtocol?
+    private weak var viewController: TabBarViewControllerProtocol?
 
     func set(viewController: TabBarViewControllerProtocol?) {
         self.viewController = viewController

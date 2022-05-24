@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol ArticleServiceProtocol {
-    func articles() -> AnyPublisher<[ArticleResponse], Error>
+    func articles() -> AnyPublisher<ArticleResponse, Error>
 }
 
 class ArticleService: ArticleServiceProtocol {
@@ -20,7 +20,7 @@ class ArticleService: ArticleServiceProtocol {
         self.client = client
     }
     
-    func articles() -> AnyPublisher<[ArticleResponse], Error> {
+    func articles() -> AnyPublisher<ArticleResponse, Error> {
         return client
             .request(.everything)
             .mapError { error in

@@ -18,7 +18,7 @@ protocol TabBarPresenterProtocol {
 // MARK: - DI
 
 class TabBarPresenter {
-    weak var viewController: TabBarViewControllerProtocol?
+    private weak var viewController: TabBarViewControllerProtocol?
     
     func set(viewController: TabBarViewControllerProtocol?) {
         self.viewController = viewController

@@ -19,19 +19,18 @@ protocol ArticlesViewControllerProtocol: UIViewControllerRouting {
         router: ArticlesRouterProtocol
     )
     
-    func displayArticles(viewModel: Articles.List.ViewModel)
-    func displayArticles(viewModel: Articles.Search.ViewModel)
+    func displayArticles(_ articles: [Article])
 }
 
-class ArticlesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, ArticlesViewControllerProtocol {
+class ArticlesViewController: UIViewController, ArticlesViewControllerProtocol {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var interactor: ArticlesInteractorProtocol?
-    var router: ArticlesRouterProtocol?
+    private var interactor: ArticlesInteractorProtocol?
+    private var router: ArticlesRouterProtocol?
     
-    var articles: [Article]?
+    private var articles: [Article]?
     
     //MARK: - DI
     
@@ -49,6 +48,7 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         prepareUI()
+        interactor?.getArticles()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -57,7 +57,7 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
     
     //MARK: - Prepare UI
     
-    func prepareUI() {
+    private func prepareUI() {
         view.backgroundColor = Colors.myLightGray
         searchBar.barTintColor = Colors.myLightGray
         tableView.backgroundColor = Colors.myLightGray
@@ -72,40 +72,28 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.separatorColor = .clear
         
         searchBar.searchBarStyle = .minimal
-    
-        loadArticles()
     }
     
-    //MARK: - Requests
+    //MARK: - Protocol
     
-    func loadArticles() {
-        interactor?.getArticles()
-    }
-    
-    func searchArticle(request: Articles.Search.Request) {
-        interactor?.searchArticle(request: request)
-    }
-    
-    //MARK: - Displays
-    
-    func displayArticles(viewModel: Articles.List.ViewModel) {
-        self.articles = viewModel.articles
+    func displayArticles(_ articles: [Article]) {
+        self.articles = articles
+        
         tableView.reloadData()
     }
-    
-    func displayArticles(viewModel: Articles.Search.ViewModel) {
-        self.articles = viewModel.articles
-        tableView.reloadData()
-    }
-    
-    //MARK: - Search
-    
+}
+
+//MARK: - Search
+
+extension ArticlesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchArticle(request: Articles.Search.Request(text: searchText))
+        interactor?.searchArticle(with: searchText)
     }
-    
-    //MARK: - Table View
-    
+}
+
+//MARK: - Table View
+
+extension ArticlesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles?.count ?? 0
     }
@@ -124,6 +112,7 @@ class ArticlesViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         guard let article = articles?[indexPath.row] else { return }
         
         router?.route(to: .details(article))

@@ -14,33 +14,15 @@ import UIKit
 
 protocol ArticleDetailsInteractorProtocol {
     func set(presenter: ArticleDetailsPresenterProtocol)
-    
-    func loadArticle(request: ArticleDetails.DisplayArticle.Request)
 }
 
-protocol ArticleDetailsDataStore {
-    var article: Article! { get set }
-}
-
-class ArticleDetailsInteractor: ArticleDetailsInteractorProtocol, ArticleDetailsDataStore {
+class ArticleDetailsInteractor: ArticleDetailsInteractorProtocol {
     
     //MARK: - DI
     
-    var presenter: ArticleDetailsPresenterProtocol?
+    private var presenter: ArticleDetailsPresenterProtocol?
     
     func set(presenter: ArticleDetailsPresenterProtocol) {
         self.presenter = presenter
-    }
-    
-    
-    //MARK: - Properties
-    
-    var article: Article!
-    
-    //MARK: - Responses
-    
-    func loadArticle(request: ArticleDetails.DisplayArticle.Request) {
-        let response = ArticleDetails.DisplayArticle.Response(article: request.article)
-        presenter?.presentArticle(response: response)
     }
 }

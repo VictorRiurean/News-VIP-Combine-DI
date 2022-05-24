@@ -18,16 +18,6 @@ class SharedAssembly: Assembly {
     // swiftlint:disable:next function_body_length
     func assemble(container: Container) {
         
-        // MARK: - Root navigator
-        
-        container.register(RootNavigatorProtocol.self) { resolver in
-            return RootNavigator(
-                application: resolver ~> UIApplicationProtocol.self,
-                articleListStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.articleList.name),
-                tabBarStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.tabBar.name)
-            )
-        }
-        
         // MARK: - Article Service
         
         container.register(ArticleServiceProtocol.self) { resolver in
@@ -68,12 +58,31 @@ class SharedAssembly: Assembly {
             )
         }
         
-        assembleStoryboards(container)
+        // MARK: - Root navigator
+        
+        container.register(RootNavigatorProtocol.self) { resolver in
+            return RootNavigator(
+                application: resolver ~> UIApplicationProtocol.self,
+                articleListStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.articleList.name),
+                aboutStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.about.name),
+                tabBarStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.tabBar.name)
+            )
+        }
+        
+        //        assembleStoryboards(container)
     }
     
     func assembleStoryboards(_ container: Container) {
+        container.register(Storyboard.self, name: R.storyboard.tabBar.name) { _ in
+            return TabBarStoryboard(sharedContainer: container, assembly: TabBarAssembly())
+        }
+        
         container.register(Storyboard.self, name: R.storyboard.articleList.name) { _ in
             return ArticleListStoryboard(sharedContainer: container, assembly: ArticleListAssembly())
+        }
+        
+        container.register(Storyboard.self, name: R.storyboard.about.name) { _ in
+            return ArticleListStoryboard(sharedContainer: container, assembly: AboutAssembly())
         }
     }
 }

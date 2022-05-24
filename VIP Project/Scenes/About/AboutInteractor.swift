@@ -14,36 +14,15 @@ import UIKit
 
 protocol AboutInteractorProtocol {
     func set(presenter: AboutPresenterProtocol)
-    
-    func getAboutData()
-    func goToLink()
 }
 
 class AboutInteractor: AboutInteractorProtocol {
     
-    //MARK: - Di
+    //MARK: - DI
     
-    var presenter: AboutPresenterProtocol?
+    private var presenter: AboutPresenterProtocol?
     
     func set(presenter: AboutPresenterProtocol) {
         self.presenter = presenter
-    }
-    
-    //MARK: - Responses
-    
-    func getAboutData() {
-        guard let myImage = UIImage(named: "capture") else { return }
-        
-        let response = About.AboutData.Response(aboutText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                                                myImage: myImage)
-        
-        presenter?.presentAboutData(response: response)
-    }
-    
-    func goToLink() {
-        guard let url = URL(string: "https://github.com/VictorRiurean") else { return }
-        
-        let response = About.Navigate.Response(url: url)
-        presenter?.goToLink(response: response)
     }
 }

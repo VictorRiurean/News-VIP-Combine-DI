@@ -14,30 +14,15 @@ import UIKit
 
 protocol AboutPresenterProtocol {
     func set(viewController: AboutViewControllerProtocol)
-    
-    func presentAboutData(response: About.AboutData.Response)
-    func goToLink(response: About.Navigate.Response)
 }
 
 class AboutPresenter: AboutPresenterProtocol {
     
     //MARK: - DI
     
-    weak var viewController: AboutViewControllerProtocol?
+    private weak var viewController: AboutViewControllerProtocol?
     
     func set(viewController: AboutViewControllerProtocol) {
         self.viewController =  viewController
-    }
-    
-    //MARK: - Presenters
-    
-    func presentAboutData(response: About.AboutData.Response) {
-        let viewModel = About.AboutData.ViewModel(aboutText: response.aboutText, myImage: response.myImage)
-        viewController?.displayAboutData(viewModel: viewModel)
-    }
-    
-    func goToLink(response: About.Navigate.Response) {
-        let viewModel = About.Navigate.ViewModel(url: response.url)
-        viewController?.goToLink(viewModel: viewModel)
     }
 }

@@ -21,7 +21,9 @@ class TabBarStoryboard: Storyboard {
         self.assembly = assembly
         container = Container(parent: sharedContainer)
         assembly.assemble(container: container)
-        storyboard = SwinjectStoryboard.create(name: R.storyboard.tabBar.name, bundle: nil, container: container)
+        storyboard = SwinjectStoryboard.create(name: R.storyboard.tabBar.name,
+                                               bundle: nil,
+                                               container: container)
     }
 
     func initial<T>() -> T? where T: UIViewController {

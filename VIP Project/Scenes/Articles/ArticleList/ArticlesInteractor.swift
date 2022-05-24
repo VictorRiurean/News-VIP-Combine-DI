@@ -15,21 +15,21 @@ import Combine
 
 protocol ArticlesInteractorProtocol {
     func getArticles()
-    func searchArticle(request: Articles.Search.Request)
+    func searchArticle(with searchText: String)
     
     var selectedArticle: Article! { get set }
 }
 
 class ArticlesInteractor: ArticlesInteractorProtocol {
     
-    var presenter: ArticlesPresenterProtocol
-    let service: ArticleServiceProtocol
+    private let presenter: ArticlesPresenterProtocol
+    private let service: ArticleServiceProtocol
     
-    var articles: [Article]?
-    var filteredArticles: [Article]?
+    private var articles: [Article]?
+    private var filteredArticles: [Article]?
     var selectedArticle: Article!
     
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     
     //MARK: - DI
     
@@ -44,30 +44,33 @@ class ArticlesInteractor: ArticlesInteractorProtocol {
     //MARK: - Responses
     
     func getArticles() {
-        service.articles()
-            .sink { completion in
-                switch completion {
-                    case .finished:
-                        print("Success")
-                    case .failure:
-                        print("Failure")
-                }
-            } receiveValue: { [weak self] response in
-                self?.articles = response[0].articles
-                let response = Articles.List.Response(articles: self?.articles, error: nil)
-                self?.presenter.presentArticles(response: response)
-            }
+//        service.articles()
+//            .sink { completion in
+//                switch completion {
+//                    case .finished:
+//                        print("Success")
+//                    case .failure:
+//                        print("Failure")
+//                }
+//            } receiveValue: { [weak self] response in
+//                self?.articles = response.articles
+//                self?.presenter.presentArticles(self?.articles ?? [])
+//            }.store(in: &cancellables)
+        let worker = ArticlesWorker()
+
+        worker.getHousesList { [weak self] articles, error in
+            guard error == nil,
+                  let articles = articles else { return }
+
+            self?.articles = articles
+            self?.presenter.presentArticles(articles)
+        }
     }
     
-    func searchArticle(request: Articles.Search.Request) {
-        if request.text == "" {
-            filteredArticles = articles
-        } else {
-            filteredArticles = articles?.filter({ (article) -> Bool in
-                return (article.title?.lowercased().contains((request.text?.lowercased())!))!
-            })
-        }
+    func searchArticle(with searchText: String) {
+        filteredArticles = searchText == "" ? articles
+                                            : articles?.filter { $0.title?.lowercased().contains(searchText.lowercased()) ?? false }
         
-        presenter.presentFilteredArticles(response: Articles.Search.Response(articles: filteredArticles))
+        presenter.presentArticles(filteredArticles ?? [])
     }
 }

@@ -18,16 +18,14 @@ protocol ArticleDetailsViewControllerProtocol: UIViewControllerRouting {
         interactor: ArticleDetailsInteractorProtocol,
         router: ArticleDetailsRouterProtocol
     )
-    
-    func displayArticle(viewModel: ArticleDetails.DisplayArticle.ViewModel)
 }
 
-class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ArticleDetailsViewControllerProtocol {
+class ArticleDetailsViewController: UIViewController, ArticleDetailsViewControllerProtocol {
     
     // MARK: - DI
     
-    var interactor: ArticleDetailsInteractorProtocol?
-    var router: ArticleDetailsRouterProtocol?
+    private var interactor: ArticleDetailsInteractorProtocol?
+    private var router: ArticleDetailsRouterProtocol?
     
     func setupDI(
         interactor: ArticleDetailsInteractorProtocol,
@@ -48,6 +46,12 @@ class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        prepareUI()
+    }
+    
+    //MARK: - UI
+    
+    private func prepareUI() {
         tableView.register(ImageAndTitleTableViewCell.nib(), forCellReuseIdentifier: ImageAndTitleTableViewCell.identifier)
         tableView.register(ContentAndInfoTableViewCell.nib(), forCellReuseIdentifier: ContentAndInfoTableViewCell.identifier)
         
@@ -57,26 +61,12 @@ class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITab
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .clear
         tableView.backgroundColor = Colors.myLightGray
-        
-        loadArticle()
     }
-    
-    //MARK: - Requests
-    
-    func loadArticle() {
-        let request = ArticleDetails.DisplayArticle.Request(article: article)
-        interactor?.loadArticle(request: request)
-    }
-    
-    //MARK: - Displays
-    
-    func displayArticle(viewModel: ArticleDetails.DisplayArticle.ViewModel) {
-        article = viewModel.article
-        tableView.reloadData()
-    }
-    
-    //MARK: - Table view
-    
+}
+
+//MARK: - Table view
+
+extension ArticleDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
@@ -86,6 +76,7 @@ class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITab
             if let cell = tableView.dequeueReusableCell(withIdentifier: ImageAndTitleTableViewCell.identifier) as? ImageAndTitleTableViewCell {
                 let url = URL(string: article?.urlToImage ?? "")
                 let processor = DownsamplingImageProcessor(size: cell.iconImageView.bounds.size)
+                
                 cell.iconImageView.kf.indicatorType = .activity
                 cell.iconImageView.kf.setImage(
                     with: url,
@@ -97,8 +88,10 @@ class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITab
                         .cacheOriginalImage
                     ])
                 cell.titleLabel.text = article?.title
+                
                 return cell
             }
+            
             return UITableViewCell()
         } else if indexPath.row == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: ContentAndInfoTableViewCell.identifier) as? ContentAndInfoTableViewCell {
@@ -108,9 +101,11 @@ class ArticleDetailsViewController: UIViewController, UITableViewDelegate, UITab
                 cell.contentLabel.sizeToFit()
                 cell.descriptionLabel.text = article?.description
                 cell.descriptionLabel.sizeToFit()
+                
                 return cell
             }
         }
+        
         return UITableViewCell()
     }
     

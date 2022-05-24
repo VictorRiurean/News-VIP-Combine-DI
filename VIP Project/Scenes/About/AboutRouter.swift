@@ -11,18 +11,37 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol AboutRouterProtocol {
     func set(viewController: AboutViewControllerProtocol)
+    
+    func route(to scene: AboutRouter.Scene)
 }
 
 class AboutRouter: NSObject, AboutRouterProtocol {
     
     // MARK: - DI
     
-    weak var viewController: AboutViewControllerProtocol?
+    private weak var viewController: AboutViewControllerProtocol?
     
     func set(viewController: AboutViewControllerProtocol) {
         self.viewController = viewController
+    }
+}
+
+//MARK: - Routing
+
+extension AboutRouter {
+    
+    enum Scene {
+        case link(URL)
+    }
+    
+    func route(to scene: AboutRouter.Scene) {
+        switch scene {
+            case .link(let url):
+                UIApplication.shared.open(url)
+        }
     }
 }
