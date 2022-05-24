@@ -44,27 +44,18 @@ class ArticlesInteractor: ArticlesInteractorProtocol {
     //MARK: - Responses
     
     func getArticles() {
-//        service.articles()
-//            .sink { completion in
-//                switch completion {
-//                    case .finished:
-//                        print("Success")
-//                    case .failure:
-//                        print("Failure")
-//                }
-//            } receiveValue: { [weak self] response in
-//                self?.articles = response.articles
-//                self?.presenter.presentArticles(self?.articles ?? [])
-//            }.store(in: &cancellables)
-        let worker = ArticlesWorker()
-
-        worker.getHousesList { [weak self] articles, error in
-            guard error == nil,
-                  let articles = articles else { return }
-
-            self?.articles = articles
-            self?.presenter.presentArticles(articles)
-        }
+        service.articles()
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        print("Success")
+                    case .failure:
+                        print("Failure")
+                }
+            } receiveValue: { [weak self] response in
+                self?.articles = response.articles
+                self?.presenter.presentArticles(self?.articles ?? [])
+            }.store(in: &cancellables)
     }
     
     func searchArticle(with searchText: String) {

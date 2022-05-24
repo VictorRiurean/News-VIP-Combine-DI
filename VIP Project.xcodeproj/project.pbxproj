@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		53BE81576469A6D1535539BC /* Pods_VIP_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F76769CFCAD0666074042D /* Pods_VIP_Project.framework */; };
 		571F2FC4283D2DE200420B8F /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571F2FC3283D2DE200420B8F /* StringConstants.swift */; };
-		571F2FC6283D463700420B8F /* ArticlesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571F2FC5283D463700420B8F /* ArticlesWorker.swift */; };
 		57858079281989CF00082243 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57858078281989CF00082243 /* TabBarViewController.swift */; };
 		5785807B281989DA00082243 /* TabBarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785807A281989DA00082243 /* TabBarInteractor.swift */; };
 		5785807D281989E500082243 /* TabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5785807C281989E500082243 /* TabBarPresenter.swift */; };
@@ -74,7 +73,6 @@
 /* Begin PBXFileReference section */
 		49FF6626858B5499B5CB58CA /* Pods-VIP Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VIP Project.release.xcconfig"; path = "Target Support Files/Pods-VIP Project/Pods-VIP Project.release.xcconfig"; sourceTree = "<group>"; };
 		571F2FC3283D2DE200420B8F /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
-		571F2FC5283D463700420B8F /* ArticlesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlesWorker.swift; sourceTree = "<group>"; };
 		57858078281989CF00082243 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		5785807A281989DA00082243 /* TabBarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarInteractor.swift; sourceTree = "<group>"; };
 		5785807C281989E500082243 /* TabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPresenter.swift; sourceTree = "<group>"; };
@@ -378,7 +376,6 @@
 				57919DFE26D163B30068808F /* ArticlesViewController.swift */,
 				57919DFF26D163B30068808F /* ArticlesInteractor.swift */,
 				57919DFA26D163B30068808F /* ArticlesPresenter.swift */,
-				571F2FC5283D463700420B8F /* ArticlesWorker.swift */,
 				57919DFC26D163B30068808F /* ArticlesRouter.swift */,
 			);
 			path = ArticleList;
@@ -603,7 +600,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				571F2FC6283D463700420B8F /* ArticlesWorker.swift in Sources */,
 				5785808D2819D6D900082243 /* TabBarStoryboard.swift in Sources */,
 				57919E2C26D29CA50068808F /* ArticleDetailsRouter.swift in Sources */,
 				57919E4C26D2B2290068808F /* ContentAndInfoTableViewCell.swift in Sources */,
