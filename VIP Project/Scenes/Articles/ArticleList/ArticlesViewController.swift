@@ -79,7 +79,9 @@ class ArticlesViewController: UIViewController, ArticlesViewControllerProtocol {
     func displayArticles(_ articles: [Article]) {
         self.articles = articles
         
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 

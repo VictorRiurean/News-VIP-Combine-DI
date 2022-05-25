@@ -68,21 +68,5 @@ class SharedAssembly: Assembly {
                 tabBarStoryboard: resolver ~> (Storyboard.self, name: R.storyboard.tabBar.name)
             )
         }
-        
-        //        assembleStoryboards(container)
-    }
-    
-    func assembleStoryboards(_ container: Container) {
-        container.register(Storyboard.self, name: R.storyboard.tabBar.name) { _ in
-            return TabBarStoryboard(sharedContainer: container, assembly: TabBarAssembly())
-        }
-        
-        container.register(Storyboard.self, name: R.storyboard.articleList.name) { _ in
-            return ArticleListStoryboard(sharedContainer: container, assembly: ArticleListAssembly())
-        }
-        
-        container.register(Storyboard.self, name: R.storyboard.about.name) { _ in
-            return ArticleListStoryboard(sharedContainer: container, assembly: AboutAssembly())
-        }
     }
 }
